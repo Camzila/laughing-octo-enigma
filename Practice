@@ -1,0 +1,70 @@
+1,September,2021
+
+5.2/5.3 print file
+
+# 以所需間隔出印出的東西
+for i in range(5):
+    print(i)
+    
+for i in range(3):
+    print(i,'number',sep=' :',end='. ')
+    
+# 5.4 讀寫二進位資料( from something like jpg , 音檔)
+
+#將回傳 整數位元組值 (integer byte values)，而非位元組字串
+t=b'wlow'
+for o in t:
+    print(o)   
+
+
+## 將整個檔案讀取為單一個位元組字串
+with open ('D:/d/somefile.txt','rb') as f:
+    data=f.read(14)  ##這邊這26很有趣哦。
+    text=data.decode('Shift_JIS')
+##將二進位資料寫入一檔案   
+with open ('D:/d/somefile.txt','wb') as b:
+    words='よう、虫めがね君、お早う。'
+    b.write(words.encode('Shift_JIS'))
+
+# 雖說可以直接添加array/c結構 ，但我沒辦法。 或許是因為 我是txt, 而範例是bin(binary file)?
+
+import array 
+nums=array.array('i',[5,4,1,8])
+
+with open ('D:/d/another.txt','wb') as i:
+    i.write(nums)
+
+#key=b'timesnew'   
+
+# Readinto()用法，同樣行不通
+nus=array.array('i',[5,4,1,8])    
+with open ('D:/d/another.txt','rb') as m:
+    m.readinto(nus)
+    #m.readinto(key)  #TypeError: readinto() argument must be read-write bytes-like object, not bytes  
+    
+#5.5 寫出到尚未存在的檔案
+with open ('D:/d/ant.txt','xt') as tryit:
+   tryit.write('After you.')    
+   
+##結果會產生一個新檔案
+
+# 5.6 在一個字串上進行 I/O 作業 
+## 想將一個文字或位元組字串餵給作用於 類檔案物件(file-like object) 的程式碼
+import io
+
+s=io.StringIO()
+s.write('He keeps saying, \n')
+print('"After you" .',file=s)
+out=s.getvalue()
+print(out)
+
+t=io.StringIO('People are always\n ruinning things.\n by')
+print(t.read(285))
+print(t.read())
+
+u=io.BytesIO()
+u.write(b'Lost in dream')
+print(u.getvalue())
+
+
+# 用處: 為了模仿一個檔案。
