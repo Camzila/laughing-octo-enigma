@@ -1,0 +1,47 @@
+import pandas as pd
+import plotly.express as px 
+df=pd.read_csv("D:/CharmingData/Animals_Inventory.csv")
+
+stay=df[{"Animal Stay Days","Animal_Type","Animal Breed"}]
+
+stay2=stay.groupby(["Animal_Type","Animal Breed","Animal Stay Days"]).size().reset_index(name="ct") #以三個指標分類
+stay3=stay.groupby(["Animal Breed","Animal_Type","Animal Stay Days"]).size().reset_index(name="ct") #同樣以三個指標分類，但是指標順序不同
+# 結果似乎只是排序的參考基準不同
+##另外，若是不用.reset)index()的話，資料類型將會是 pandas.core.series.Series，如此不能以DataFrame的形式放進px 裡面當作資料。
+
+stay4=stay.groupby(["Animal_Type","Animal Stay Days"]).size().reset_index(name="ct") #只以2個指標分類
+
+fig_sc=px.scatter(stay3,x="Animal Stay Days",y="ct",color="Animal_Type",size='ct')
+fig_sc.show()
+len(stay3)
+# 因為資料 stay3存在一個 Animal_Breed的指標，所以即使同樣的動物且停留天數一樣，仍有可能出現一組以上的標點。
+##這也說明了資料項目應該會較多。以len(file)便可得知 ----67:53。除此之外，有方法可以更精確地算。
+###本來我以為調出品種與停留天數可以推算出來，出來的結果為，調天數 : 符合不考慮品種而單純考慮物種與停留天數。所以調品種就沒什麼意義了。
+print(len(stay3[stay3["Animal_Type"]=="CAT"]),"*")
+
+
+#s4_cat=stay4[stay4["Animal_Type"]=='CAT']
+#fig_line=px.scatter(s4_cat,x="Animal Stay Days",y="ct",symbol="Animal_Type")
+#只以2個指標分類，測試後應不會出現 stay3的重複了。
+fig_line=px.scatter(stay4,x="Animal Stay Days",y="ct",symbol="Animal_Type",color="Animal_Type",size="ct")
+fig_line.show()
+len(stay4)
+print(len(stay4[stay4["Animal_Type"]=="CAT"]),"*")
+
+# 查看貓的品種
+dfshort=df[{"Animal_Type","Animal Breed"}]
+cat=dfshort[dfshort["Animal_Type"]=="CAT"]
+cbreed=cat["Animal Breed"].unique()
+for i in cbreed:
+    print(i)
+    
+    
+#查看貓停留的天數有多少種
+dfshort1=df[{"Animal_Type","Animal Breed","Animal Stay Days"}]
+cat1=dfshort1[dfshort1["Animal_Type"]=="CAT"]
+cday=cat1["Animal Stay Days"].unique()
+print(cday)
+sav=[]
+for i in cday:
+    sav.append(i)
+len(sav)    
