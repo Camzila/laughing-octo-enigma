@@ -1,0 +1,58 @@
+Created on Sun Aug 29 22:45:50 2021
+1.6 在一個字典中將鍵質映射到多個值
+
+from collections import defaultdict
+
+d=defaultdict(list)
+
+d['a'].append('apple')
+d['a'].append('abrupt')
+d['a'].append('acute')
+d['b'].append('base')
+d['b'].append('beyond')
+d['c'].append("cat")
+
+
+b=defaultdict(set)
+
+b['a'].add('apple')
+b['a'].add('abrupt')
+b['a'].add('acute')
+b['b'].add('base')
+b['b'].add('beyond')
+
+
+Created on Mon Aug 30 09:40:55 2021
+# 1.11 Name a slice
+
+m=slice(2,23,5)  # slice(開始的字符,將要提取的最後字符號碼(will be printed out),間隔)
+a='welcometothisfuzzyworld'
+b='Whereareyou?'
+
+m.indices(len(a))
+#Out[36]: (2, 15, 1)
+m.indices(len(b))
+#Out[35]: (2, 12, 1)
+
+##得知:映射前設定的最常長度要大於將映射的字符，注意字符的最大長度並不會更改成比原本還要大的值。
+
+for i in range (*m.indices(len(a))):
+    print(a[i])
+
+#1.12 Find the items that happen 
+
+from collections import Counter 
+words=['someone','said','Someone','saw','me ','talking','to','someone','last','night','saw','what','said','someone',]
+words_counts=Counter(words) #會分大小寫
+top_one=words_counts.most_common(3)
+print(top_one)
+print(words_counts)
+
+more=['someone','likes','someone','else','said','I']
+
+
+for i in more:   
+    words_counts[i]+=1
+print(words_counts)
+#words_counts.update(more)
+#print(words_counts)
