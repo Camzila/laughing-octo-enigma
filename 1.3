@@ -1,0 +1,33 @@
+Created on Sat Sep  4 23:53:45 2021
+
+
+1.3留下最後N 個方式 ##先前寫下來的，但今天花了很長時間才懂 (下午到晚上。
+from collections import deque 
+
+def search(lines,pattern,history=5):
+    pre_lines=deque(maxlen=history)
+    #print(pre_lines)
+    for line in lines:
+        if pattern in line:
+            #print("PATTERN:",pattern)
+            yield line,pre_lines
+        pre_lines.append(line)
+    print("PRE_LINES 前三句子: ",pre_lines)
+        
+
+
+
+sen=["After you","Bright color ","Cozy Mysteries","Day is long and pain.","hiya","Morning sun","Sunny places","Day one"]
+gt=search(sen,"Day",3)
+print(next(gt)) 
+#('Day is long and pain.', deque(['Morning sun', 'Sunny places', 'Bright color '], maxlen=3))
+
+for line,plines in search(sen,"Day",3): ##這就是 yield的那兩組資料
+    print("FOR : ",line) #這是含有關鍵字的一行(代稱x)
+    print("FOR 前三 : ",plines) #這是x行的前3句
+    for pline in plines: 
+        print("Pline 印出前三的各個句子 : ",pline) 
+    print("It's line 含關鍵字的一句 : ",line,end=" ")
+    print("-"*5)
+
+#print(next(ax))
