@@ -1,4 +1,46 @@
+Created on Sun Aug 29 20:52:23 2021
+
+@author: USER
+"""
+#1.5 實做一個優先序佇列
+import heapq
+
+class PriorityQuene:
+    def __init__(self):
+        self._queue=[]
+        self._index=0
+    def push(self,thing,priority): ##!!!!!!!!!!為什麼這個不要return? 
+        heapq.heappush(self._queue,(-priority,self._index,thing))  # (要加的序列,(順序,index,要加的物)
+        self._index+=1
+    def pop(self):
+        return heapq.heappop(self._queue)#[-1]的意義是顯示最後一個
+
+class Thing:
+    def __init__(self,name):
+        self.name=name
+    def __repr__(self):
+        return 'Thing({!r})'.format(self.name) ##如果把 !r去掉，字串會改變 : 'STRING' to STRING  
+##但我不知道!r是什麼。
+
+
+q=PriorityQuene()                   ##!!!!!!!!!!!!!有甚麼辦法讓 q顯示內容嗎? 而非 <__main__.PriorityQuene at 0x2450ba1ec10>?
+
+q.push(Thing('nest'),4)
+q.push(Thing('pillow'),1)
+q.push(Thing('eraser'),4)
+
+
+print(q.pop()) #順序: 5>1>-2 ,pop刪除理應會是最小的
+
+print(q.pop())
+
+print(q.pop())
+
+#_______________________________________
+
+
 Created on Sun Aug 29 22:45:50 2021
+
 1.6 在一個字典中將鍵質映射到多個值
 
 from collections import defaultdict
