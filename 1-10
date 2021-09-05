@@ -1,0 +1,45 @@
+"""
+Created on Mon Aug 30 09:40:55 2021
+Sun Sep 5 Morning 2021
+
+"""
+
+#1.10從依序列移除重複項目並仍是同順序
+def dedupe(self):  #儲存數值，不重複存
+    seen=set()
+    for item in self :
+        if item not in seen:
+            yield item 
+            seen.add(item)
+    print(seen,"*")
+            
+ # 當序列中的項目是hashable(可雜湊的)
+           
+g=[5,4,2,6,51,5,2,0]
+li=list(dedupe(g))
+
+
+
+def dedupe2(a,key=None):
+    seen=set()
+    for item in a :
+        val= item if key is None else key (item)
+        print(val)
+        if val not in seen:
+            yield item 
+            seen.add(val)
+        print(seen,"two")
+ # 當序列中的項目是unhashable(不可雜湊的)
+
+
+g1=[{'x':1,'y':2},{'x':1,'y':3},{'x':1,'y':4},{'x':1,'y':5},{'x':2,'y':4},{'x':5,'y':4}] ##我真搞不懂加上去的方法
+li1=list(dedupe2(g1,key=lambda d:(d['x'],d['y'])))
+print("若只以特定欄位為基準:")
+li2=list(dedupe2(g1,key=lambda d:(d['y'])))
+
+#若想不重複，可以...
+num=[5,74,8,1,0,23,9]
+a=set(num)
+print(a)
+ #但原資料順序會不一樣
+#{0, 1, 5, 8, 9, 74, 23}
